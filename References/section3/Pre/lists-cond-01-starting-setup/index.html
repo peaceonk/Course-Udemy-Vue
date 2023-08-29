@@ -18,12 +18,35 @@
     </header>
     <section id="user-goals">
       <h2>My course goals</h2>
-      <input type="text" />
-      <button>Add Goal</button>
-      <p>No goals have been added yet - please start adding some!</p>
-      <ul>
-        <li>Goal</li>
+      <input type="text" v-model="enteredGoalValue" />
+      <button @click="addGoal">Add Goal</button>
+      <p v-if="goals.length === 0">No goals have been added yet - please start adding some!</p>
+      <ul v-else-if="goals.length > 0">
+        <!-- <li v-for="goal in goals">{{ goal }}</li> -->
+        <!-- <li v-for="goal of goals">{{ goal }}</li> -->
+        <!-- <li v-for="(goal, index) in goals" @click="removeGoal">{{ goal }} - {{ index }}</li> -->
+        <!-- <li v-for="(goal, index) in goals" :key="index">{{ goal }} - {{ index }}</li> -->
+        
+        <li v-for="(goal, index) in goals" @click="removeGoal">
+          <!-- {{ goal }} - {{ index }} -->
+          <p>{{ goal }} - {{ index }}</p>
+          <input type="text" @click.stop>
+        </li>
       </ul>
+
+      <!-- <ul>
+        <li v-for="(value, key, index) in {name: 'peace', age: 32}">{{ key }} : {{ value }} - {{ index }}</li>
+      </ul> -->
+      <!-- <ul>
+        <li v-for="num in 10">{{ num }}</li>
+      </ul> -->
+
+      <!-- <p v-if="goals.length < 0">goals value is wrong - it might be error</p> -->
+
+<!--       <p v-show="goals.length === 0">No goals have been added yet - please start adding some!</p>
+      <ul v-show="goals.length > 0">
+        <li>Goal</li>
+      </ul> -->
     </section>
   </body>
 </html>
