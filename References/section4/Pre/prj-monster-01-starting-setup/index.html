@@ -20,24 +20,30 @@
       <section id="monster" class="container">
         <h2>Monster Health</h2>
         <div class="healthbar">
-          <div class="healthbar__value"></div>
+          <div class="healthbar__value" :style="{'width': updateMonsterHealth}"> {{ monsterHealth }}</div>
         </div>
       </section>
       <section id="player" class="container">
         <h2>Your Health</h2>
         <div class="healthbar">
-          <div class="healthbar__value"></div>
+          <div class="healthbar__value" :style="{'width': updatePlayerHealth}"> {{ playerHealth }}</div>
         </div>
       </section>
-      <section id="controls">
-        <button>ATTACK</button>
-        <button>SPECIAL ATTACK</button>
-        <button>HEAL</button>
-        <button>SURRENDER</button>
+      <section id="controls" v-show="!resultVisible">
+        <button @click="attack">ATTACK</button>
+        <button @click="specialAttack" :disabled="specialAttackPossible">SPECIAL ATTACK</button>
+        <button @click="heal">HEAL</button>
+        <button @click="surrender">SURRENDER</button>
+      </section>
+      <section id="result" class="container" v-show="resultVisible">
+        <h1>{{resultMsg}}</h1>
+        <button @click="retry">RETRY</button>
       </section>
       <section id="log" class="container">
         <h2>Battle Log</h2>
-        <ul></ul>
+        <ul>
+          <li v-for="(log, index) in logArr" :key="index" v-html="log"></li>  <!-- v-html은 xss 공격에 취약함 (강의 내용과 달리 혼자 미리 다 작업하여서 빠른 수정을 위해 사용)-->
+        </ul>
       </section>
     </div>
   </body>
