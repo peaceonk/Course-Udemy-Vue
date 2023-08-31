@@ -17,8 +17,9 @@
       <h1>FriendList</h1>
     </header>
     <section id="app">
+      <button @click="toggleAllDetails">{{ detailsIsAreVisible ? 'hide' : 'show' }} All Details</button>
       <ul>
-        <li>
+<!--         <li>
           <h2>Manuel Lorenz</h2>
           <button>Show Details</button>
           <ul>
@@ -33,7 +34,26 @@
             <li><strong>Phone:</strong> 09876 543 221</li>
             <li><strong>Email:</strong> julie@localhost.com</li>
           </ul>
+        </li> -->
+        <li v-for="friend in friends" :key="friend.id">
+          <h2>{{ friend.name }}</h2>
+          <button @click="toggleDetails(friend.id)">{{ friend.detailsIsVisible ? 'hide' : 'show' }} Details</button>
+          <ul v-show="friend.detailsIsVisible">
+            <li><strong>Phone:</strong> {{ friend.phone }}</li>
+            <li><strong>Email:</strong> {{ friend.email }}</li>
+          </ul>
         </li>
+      </ul>
+    </section>
+
+    <header>
+      <h1>FriendList2</h1>
+    </header>
+    <section id="app2">
+      <ul>
+        <friend-contact></friend-contact>
+        <friend-contact></friend-contact>
+        <friend-contact></friend-contact>
       </ul>
     </section>
   </body>
