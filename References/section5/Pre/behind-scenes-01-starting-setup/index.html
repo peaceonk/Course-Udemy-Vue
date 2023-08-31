@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Behind The Scenes</h1>
+    </header>
+    <section id="app">
+      <h2>How Vue Works</h2>
+
+      <!-- 아래 두 방식 모두 유저의 모든 입력에 대해 값을 가져오게 된다.
+      <input type="text" @input="saveInput">
+      <input type="text" v-model="currentUserInput">
+      
+      <button @click="setText">Set Text</button>
+
+      <p>{{ message }}</p>
+    -->
+    <!-- ref를 사용하면 필요할 때에만 값을 가져올 수 있다. -->
+      <input type="text" ref="userText">
+
+      <button @click="setText2">Set Text</button>
+      
+      <p>{{ message }}</p>
+    </section>
+    <section id="app2">
+
+    </section>
+  </body>
+</html>
