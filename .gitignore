@@ -1,3 +1,5 @@
 
 # vscode setting
 .vscode/
+
+node_module/
