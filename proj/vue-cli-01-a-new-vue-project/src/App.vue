@@ -4,8 +4,34 @@
       <h1>My Friends</h1>
     </header>
     <ul>
-      <friend-contact></friend-contact>
-      <friend-contact></friend-contact>
+      <new-friend @add-contact="onAddContact"></new-friend>
+      <!--
+      <friend-contact
+        name="name1"
+        phone-number="phoneNumber1"
+        email-address="email1@email1.email1"
+        is-favorite="1"
+      ></friend-contact> 
+      <friend-contact
+        name="name2"
+        phone-number="phoneNumber2"
+        email-address="email2@email2.email2"
+      ></friend-contact>
+      -->
+
+      <friend-contact
+        v-for="(friend, index) in friends"
+        :index="index"
+        :key="friend.id"
+        :id="friend.id"
+        :name="friend.name"
+        :phone-number="friend.phone"
+        :email-address="friend.email"
+        :is-favorite="friend.isFavorite"
+        @toggle-favorite="toggleFavoriteStatus"
+        @delete="deleteContact"
+      ></friend-contact>
+      
     </ul>
   </section>
 </template>
@@ -21,13 +47,15 @@ export default {
           id: 'peace',
           name: 'peace kim',
           phone: '01011112222',
-          email: 'peace@peace.kim'
+          email: 'peace@peace.kim',
+          isFavorite: true
         },
         {
           id: 'mijeong',
           name: 'mijoeng kang',
           phone: '01033334444',
-          email: 'mijeong@mijoeng.kang'
+          email: 'mijeong@mijoeng.kang',
+          isFavorite: false
         },
         {
           id: 'junghoon',
@@ -39,6 +67,25 @@ export default {
     }
   },
   methods: {
+    toggleFavoriteStatus(friendId) {
+      const identifiedFriend = this.friends.find(friend => friend.id == friendId);
+      identifiedFriend.isFavorite = !identifiedFriend.isFavorite;
+    },
+    onAddContact(data) {
+      const newFriendContact = {
+        id: new Date().toISOString(),
+        name: data.enteredName,
+        phone: data.enteredPhone,
+        email: data.enteredEmail,
+        isFavorite : false
+      }
+      this.friends.push(newFriendContact);
+    },
+    deleteContact(friendId) {
+      console.log('delete', friendId);
+      this.friends = this.friends.filter((friend) => friend.id !== friendId);
+      console.log(this.friends);
+    }
   }
 }
 </script>
@@ -108,5 +155,31 @@ export default {
     background-color: #ec3169;
     border-color: #ec3169;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+  }
+
+  #app form {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    margin: 1rem auto;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    width: 90%;
+    max-width: 40rem;
+  }
+
+  #app input {
+  font: inherit;
+  padding: 0.15rem;
+  }
+
+  #app label {
+    font-weight: bold;
+    margin-right: 1rem;
+    width: 7rem;
+    display: inline-block;
+  }
+
+  #app form div {
+    margin: 1rem 0;
   }
 </style>
